@@ -3,7 +3,7 @@ services:
     container_name: mongo1
     image: mongo
     volumes:
-      - ~/db-data/mongodb/mongo1:/data/db
+      - /db-data/mongodb/mongo1:/data/db
       - ./rs-init.sh:/root/scripts/rs-init.sh
     networks:
       - mongors-network
@@ -13,32 +13,33 @@ services:
       - mongo2
       - mongo3
     restart: always
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs" ]
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs"]
 
   mongo2:
     container_name: mongo2
     image: mongo
     volumes:
-      - ~/db-data/mongodb/mongo2:/data/db
+      - /db-data/mongodb/mongo2:/data/db
     networks:
       - mongors-network
     ports:
       - 27022:27017
     restart: always
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs" ]
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs"]
 
   mongo3:
     container_name: mongo3
     image: mongo
     volumes:
-      - ~/db-data/mongodb/mongo3:/data/db
+      - /db-data/mongodb/mongo3:/data/db
     networks:
       - mongors-network
     ports:
       - 27023:27017
     restart: always
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs" ]
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs"]
 
 networks:
   mongors-network:
-    driver: bridge
+    name: common
+    external: true
