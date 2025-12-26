@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: password
 
     volumes:
-      - /root/db-data/postgres:/var/lib/postgresql/data
+      - /db-data/postgres:/var/lib/postgresql/data
 
     ports:
       - "5432:5432"
